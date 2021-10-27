@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>Classes Javascript</h1>
+        <p>
+            Foram introduzidas pelo ES6 <br>
+            As Classes do Javascript são templates para criar Javascript Objects <br>
+            Uma classe NÃO é um objeto <br>
+
+            <b>SINTAXE</b> <br>
+                ∟Use a palavra-chave "class" para criar uma classe <br>
+                ∟Sempre adicione um método chamado "constructor()" <br>
+                    ∟O método constructor é chamado automaticamente quando um novo objeto é criado  <br>
+                    ∟Ele é usado para inicializar propriedades dos objetos <br>
+                    ∟Caso ele não seja definido, o Javascript irá automaticamente adicionar um método constructor vazio <br>
+                ∟A sintaxe das classes sempre deve ser escrita em "strict mode" (ex: haverá um erro caso uma variável seja usada sem ser declarada) <br>
+                Sintaxe: <br>
+                    class ClassName { <br>
+                    constructor() { ... } <br>
+                    } <br>
+ 
+                ex: Criar uma classe chamada 'Car' com duas propriedades iniciais 'name' e 'year' <br>
+                    class Car { <br>
+                    constructor(name, year) { <br>
+                        this.name = name; <br> 
+                        this.year = year; <br>
+                    } <br>
+                    } <br>
+                    const myCar = new Car("Ford", 2014);	//A classe Car foi usada para criar um novo objeto chmado myCar <br>
+        </p>
+
+        <h2>MÉTODOS DE UMA CLASSE</h2>
+        <p>
+            Os métodos de uma classe são criados com a mesma sintaxe dos 'object methods' <br>
+            Sintaxe: <br> 
+                class ClassName { <br> 
+                constructor() { ... } //Sempre deve ser criada <br>
+                method_1() { ... } <br>
+                method_2() { ... } <br>
+                method_3() { ... } <br>
+                } <br>
+
+
+            ex: Criar uma classe com o método age(), que retorna a idade de um carro <br>
+                class Car {<br>
+                constructor(name, year) { <br>
+                    this.name = name; <br>
+                    this.year = year; <br>
+
+                } <br>
+                age() { <br>
+                    let date = new Date(); <br>
+                    return date.getFullYear() - this.year; <br>
+                } <br>
+                } <br>
+                let myCar = new Car("Ford", 2014); <br>
+                console.log( "My car is " + myCar.age() + " years old"); <br>
+
+            Parâmetros podem ser enviados para os métodos de uma classe: <br>
+            ex: <br>
+                class Car { <br>
+                constructor(name, year) { <br>
+                    this.name = name; <br>
+                    this.year = year; <br>
+                } <br>
+                age(x) { <br>
+                    return x - this.year; <br>
+                } <br>
+                } <br>
+
+                let date = new Date(); <br>
+                let year = date.getFullYear(); <br>
+
+                let myCar = new Car("Ford", 2014); <br>
+                console.log( "My car is " + myCar.age(year) + " years old" ); 	//Enviando o parâmetro 'year' para o método 'age()' da classe Car, através do objeto myCar <br>
+        </p>
+
+        <h1>JAVASCRIPT HERANÇA DE CLASSES</h1>
+        <p>
+            A palavra chave 'extends' é usada para criar uma herança entre classes diferentes  <br>
+                ∟Uma classe criada com a palavra 'extends' irá herdar todos os métodos de alguma outra classe  <br>
+            A herança é útil para a reutilização de código, reutilizando propriedades e métodos de uma classe já existente  <br>
+            ex: Criar uma classe chamada 'Model' que irá herdar os métodos da classe 'Car'  <br>
+                class Car { <br>
+                constructor(brand) { <br>
+                    this.carname = brand; <br>
+                } <br>
+                present() { <br>
+                    return 'I have a ' + this.carname; <br>
+                } <br>
+                } <br>
+                        
+                class Model extends Car {		//Essa classe irá herdar todos os métodos da classe 'Car' <br>
+                constructor(brand, mod) { <br>
+                    super(brand);			//O método Super() é responsável por chamar o método construtor da 'parent class', possibilitando assim acesso as propriedades e métodos dela <br>
+                    this.model = mod; <br>
+                } <br>
+                show() { <br>
+                    return this.present() + ', it is a ' + this.model; <br>
+                } <br>
+                }	 <br>
+                let myCar = new Model("Ford", "Mustang"); <br>
+                document.getElementById("demo").innerHTML = myCar.show(); <br>
+        </p>
+
+
+        <h2>Getters e Setters</h2>
+        <p>
+            • Classes permitem o uso de getters e setters <br>
+            • Getters e setters podem ser usados caso seja necessário fazer alguma modificação no valor antes de devolvê-lo ou antes de defini-lo. <br>
+            ex: Criar um getter e um setter para a propriedade "carname": <br>
+                class Car { <br>
+                constructor(brand) { <br>
+                    this.carname = brand; <br>
+                } <br>
+                get cnam() { <br>
+                    return this.carname; <br>
+                } <br>
+                set cnam(x) { <br>
+                    this.carname = x; <br>
+                } <br>
+                } <br>
+
+                let myCar = new Car("Ford"); <br>
+                document.getElementById("demo").innerHTML = myCar.cnam;	//Mesmo que o getter seja um método, não se usa parênteses quando se quer pegar o valor da propriedade <br>
+
+            • O nome do método getter ou setter não pode ser igual ao nome da propriedade, neste caso carname. <br>
+            • Programadores usam _ antes do nome da propriedade para separar o getter e setter da propriedade real <br>
+                ∟ex: <br>
+                    class Car { <br>
+                    constructor(brand) { <br>
+                        this._carname = brand; <br>
+                    } <br>
+                    get carname() { <br>
+                        return this._carname; <br>
+                    } <br>
+                    set carname(x) { <br>
+                        this._carname = x; <br>
+                    } <br>
+                    } <br>
+
+                    let myCar = new Car("Ford"); <br>
+                    document.getElementById("demo").innerHTML = myCar.carname; <br>
+
+            • Quando usar o setter, use a mesma sintaxe que é usada para definir o valor de uma propriedade, mas sem os parênteses <br>
+                ∟ex: <br>
+                    class Car { <br>
+                    constructor(brand) { <br>
+                        this._carname = brand; <br>
+                    } <br>
+                    set carname(x) { <br>
+                        this._carname = x; <br>
+                    } <br>
+                    get carname() { <br>
+                        return this._carname; <br>
+                    } <br>
+                    } <br>
+
+                    let myCar = new Car("Ford"); <br>
+                    myCar.carname = "Volvo";					//Uso do setter, não se usa parênteses <br>
+                    document.getElementById("demo").innerHTML = myCar.carname; <br>
+        </p>
+
+        <h2>HOISTING</h2>
+        <p>
+        Diferentemente das funções e outras declarações em Javascript, a declaração de classes não pode ser içada (hoisted) <br>
+            Isso significa que uma classe deve ser declarada antes de ser usada <br>
+        </p>
+
+        <h1>Javascript Static Methods</h1>
+        <p>
+            O uso da palavra 'static' antes do nome de um método faz com que esse método não possa ser chamado em outros objetos <br>
+            Esse método só pode ser chamado por outras 'object class' <br>
+            ex: <br>
+                class Car { <br>
+                constructor(name) { <br>
+                    this.name = name; <br>
+                } <br>
+                static hello() { <br>
+                    return "Hello!!"; <br>
+                } <br>
+                } <br>
+                        
+                let myCar = new Car("Ford"); <br>
+
+                document.getElementById("demo").innerHTML = Car.hello();		// Você pode chamar o método hello() na classe Car <br>
+                        
+                document.getElementById("demo").innerHTML = myCar.hello();	// Mas não pode chamar em um objeto da classe Car, o que resultaria em um erro <br>
+        </p>
+                    
+        <p>
+            Se você deseja usar o objeto myCar dentro do método static, pode enviá-lo como um parâmetro: <br>
+                ex: <br>
+                class Car { <br>
+                    constructor(name) { <br>
+                    this.name = name; <br>
+                } <br>
+                static hello(x) { <br>
+                    return "Hello " + x.name; <br>
+                } <br>
+                } <br>
+                let myCar = new Car("Ford"); <br>
+                document.getElementById("demo").innerHTML = Car.hello(myCar);	//Objeto myCar sendo enviado como parâmetro <br>
+        </p>
+    </body>
+</html>
